@@ -122,24 +122,3 @@ TEST_(StoreObjectSubscript) {
 
   EXPECT_EQ(42, _object["a"]);
 }
-
-TEST_(Issue392) {
-  std::string response =
-      "[{\"id\":\"d073d5028b80\",\"uuid\":\"24fcd5-238461903764\",\"label\":"
-      "\"Room\",\"connected\":false,\"power\":\"on\",\"color\":{\"hue\":251."
-      "38200961318378,\"saturation\":0.009994659342336155,\"kelvin\":2500},"
-      "\"brightness\":0.5699855039291981,\"group\":{\"id\":"
-      "\"72ca5c93acd491a7a757ed28483ffce8\",\"name\":\"Room "
-      "1\"},\"location\":{\"id\":\"75addaabeb82666108e8e70c98ae7bec\",\"name\":"
-      "\"My Home\"},\"product\":{\"name\":\"Original "
-      "1000\",\"identifier\":\"lifx_original_a21\",\"company\":\"LIFX\","
-      "\"capabilities\":{\"has_color\":true,\"has_variable_color_temp\":true,"
-      "\"has_ir\":false,\"has_multizone\":false}},\"infrared\":null,\"last_"
-      "seen\":\"2016-11-26T09:30:43.000+00:00\",\"seconds_since_seen\":100."
-      "602491339}]";
-
-  JsonObject& root = _jsonBuffer.parseObject(response);
-  EXPECT_FALSE(root.success());
-  std::string id = root[static_cast<char*>(0)]["id"];
-  EXPECT_EQ(0, id.size());
-}
